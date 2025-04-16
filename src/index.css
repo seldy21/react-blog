@@ -16,11 +16,11 @@ code {
 header {
   display: flex;
   justify-content: space-between;
-  flex-direction: row-reverse;
   align-items: center;
   border-bottom:1px solid #eaeaea;
   color: white;
   min-height: 60px;
+  padding: 0 80px;
 }
 
 header a, footer a {
@@ -31,6 +31,12 @@ header a, footer a {
 
 header a:hover, footer a:hover {
   text-decoration: underline;
+}
+
+header .header__logo {
+  color: black;
+  font-weight: 600;
+  font-size: 18px;
 }
 
 /*footer*/
@@ -65,7 +71,7 @@ footer {
 }
 
 /*post list*/
-.post__list {
+.post__list, .post__detail {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -116,4 +122,66 @@ footer {
   gap: 20px;
   margin-top: 10px;
   flex-direction: row-reverse;
+}
+
+.post__detail .post__title {
+  font-size: 36px;
+  line-height: 40px;
+}
+
+.post__detail .post__utils-box {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.post__detail .post__profile-box {
+  padding-top: 20px;
+}
+
+.post__detail .post__text {
+  padding: 20px 0;
+}
+
+.content__box {
+  min-height: calc(100vh - 101px);
+}
+
+/* profile */
+.profile__box {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: left;
+  line-height: 24px;
+  font-size: 18px;
+  max-width: 680px;
+
+}
+
+.flex__box-lg {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.profile__image {
+  width: 72px;
+  height: 72px;
+  background-color: #efefef;
+  border-radius: 50%;
+}
+
+.profile__name{
+  font-size: 1rem;
+  padding-top: 4px;
+}
+
+.profile__email {
+  font-weight: 500;
+}
+
+.profile__logout {
+  color: gray;
+  font-size: 14px;
 }
