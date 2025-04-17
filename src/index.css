@@ -12,6 +12,16 @@ code {
     monospace;
 }
 
+/* default tags */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 0;
+}
+
 /*header*/
 header {
   display: flex;
@@ -58,7 +68,8 @@ footer {
   gap: 20px;
   align-items: center;
   width: 100%;
-  padding: 2rem 4rem;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
   margin: 0 auto;
   color: gray;
   max-width: 680px;
@@ -184,4 +195,67 @@ footer {
 .profile__logout {
   color: gray;
   font-size: 14px;
+}
+
+
+/* carousel */
+
+.carousel{
+  height: 400px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  margin-top:20px;
+  max-width: 680px;
+}
+
+.carousel__slides{
+  height: 100%;
+}
+
+.carousel__slide-container {
+  opacity: 0;
+  transition: all 0.5s ease;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.carousel__slide-container.active {
+  opacity: 1;
+}
+
+.carousel__slide-container img {
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.carousel__controls{
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+.carousel__control-button{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ffffff85;
+  display: block;
+  border:none;
+  margin: 0 5px;
+  padding: none;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+.carousel__control-button.active {
+  background-color: #ffffff;
 }
