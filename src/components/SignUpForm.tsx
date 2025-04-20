@@ -2,6 +2,8 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { app } from "firebaseApp";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { toastStyle } from "utils/toastStyle";
 
 export default function SignUp() {
   const [email, setEmail] = useState<string>("");
@@ -15,14 +17,15 @@ export default function SignUp() {
       const auth = getAuth(app);
       await createUserWithEmailAndPassword(auth, email, password);
 
-    } catch (error) {
-      console.error("회원가입 실패:", error);
+      toast.success("회원가입에 성공하였습니다! 🦄", toastStyle);
+    } catch (error: any) {
+      toast.error(`회원가입에 실패하였습니다. 😢 ${error?.code}`);
     }
-  }
+  };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(value);
+
     if (name === "email") {
       setEmail(value);
       const validEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -54,15 +57,36 @@ export default function SignUp() {
       <h1>회원가입</h1>
       <div className="form__block-login">
         <label htmlFor="email">이메일</label>
-        <input type="text" id="email" name="email" required onChange={onChange} />
+        <input
+          type="text"
+          id="email"
+          name="email"
+          required
+          onChange={onChange}
+          value={email}
+        />
       </div>
       <div className="form__block-login">
         <label htmlFor="password">비밀번호</label>
-        <input type="password" id="password" name="password" required onChange={onChange} />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          value={password}
+          onChange={onChange}
+        />
       </div>
       <div className="form__block-login">
         <label htmlFor="passwordcConfirm">비밀번호 확인</label>
-        <input type="password" id="passwordcConfirm" name="passwordConfirm" required onChange={onChange} />
+        <input
+          type="password"
+          id="passwordcConfirm"
+          name="passwordConfirm"
+          required
+          value={passwordConfirm}
+          onChange={onChange}
+        />
       </div>
       <div className="form__block-login">
         계정이 이미 있으신가요?{" "}
@@ -72,7 +96,11 @@ export default function SignUp() {
       </div>
       <div className="error__text">{error}</div>
       <div className="form__block-login">
-        <button type="submit" className="form__btn-submit" disabled={error.length > 0}>
+        <button
+          type="submit"
+          className="form__btn-submit"
+          disabled={error.length > 0}
+        >
           생성
         </button>
       </div>

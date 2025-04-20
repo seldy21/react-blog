@@ -372,3 +372,29 @@ footer {
   font-size: 14px;
   margin-top: 10px;
 }
+
+/* loader */
+.loader {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right:0;
+  bottom: 0;
+  margin: auto;
+  width: 48px;
+  height: 48px;
+  border: 4px solid #929292;
+  border-bottom: none;
+  border-radius: 100%;
+  z-index: 9999;
+  animation: loader 1s linear infinite;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

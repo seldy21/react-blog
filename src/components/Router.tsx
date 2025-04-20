@@ -25,8 +25,6 @@ function Router({ isAuthenticated }: RouterProps) {
           <Route path="/posts/new" element={<PostNew />} />
           <Route path="/posts/edit" element={<PostEdit />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/login" element={<Login />} />
           <Route path="*" element={<Navigate to="/" />} /> {/*default route*/}
         </>
       ) : (
