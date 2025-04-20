@@ -366,3 +366,9 @@ footer {
   color: #e7a2c2;
   text-decoration: underline;
 }
+
+.error__text{
+  color: #ff6464;
+  font-size: 14px;
+  margin-top: 10px;
+}

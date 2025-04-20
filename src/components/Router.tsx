@@ -9,13 +9,16 @@ import PostPage from "pages/posts/detail";
 import SignUpPage from "pages/signup";
 import { useState } from "react";
 
-function Router() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false); //firebase auth state
+interface RouterProps {
+  isAuthenticated: boolean; // 로그인 여부
+}
 
+function Router({ isAuthenticated }: RouterProps) {
   return (
     <Routes>
       {isAuthenticated ? (
-        <>{/* 로그인 된 경우 */}
+        <>
+          {/* 로그인 된 경우 */}
           <Route path="/" element={<Home />} />
           <Route path="/posts" element={<PostList />} />
           <Route path="/posts/:id" element={<PostPage />} />
@@ -27,7 +30,8 @@ function Router() {
           <Route path="*" element={<Navigate to="/" />} /> {/*default route*/}
         </>
       ) : (
-        <>{/* 로그인 안 된 경우 */}
+        <>
+          {/* 로그인 안 된 경우 */}
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Login />} /> {/*default route*/}
