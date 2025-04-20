@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 interface PostListProps {
-  hasNavigate?: boolean; // Optional prop to control navigation display
+  hasNavigate?: boolean;
 }
 
 console.log(firebase)
