@@ -28,5 +28,7 @@
     "pages/*" : ["pages/*"],
     "components/*" : ["components/*"],
     "firebaseApp/*" : ["firebaseApp/*"],
+    "context/*" : ["context/*"],
+    "utils/*" : ["utils/*"],
   }
 }

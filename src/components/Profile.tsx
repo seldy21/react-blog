@@ -1,24 +1,23 @@
+import AuthContext from "context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "firebaseApp";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
 import { toast } from "react-toastify";
 import { toastStyle } from "utils/toastStyle";
 
+const onSignOut = async () => {
+  try {
+    const auth = getAuth(app);
+    await signOut(auth);
+    toast.success("로그아웃 되었습니다. 또 와요! 👻", toastStyle);
+  } catch (error) {
+    console.error(error);
+    toast.error("로그아웃에 실패했습니다.", toastStyle);
+  }
+};
+
 export default function Profile() {
-  const auth = getAuth(app);
-
-  const user = auth.currentUser;
-  console.log(user);
-
-  const onSignOut = async () => {
-    try {
-      await signOut(auth);
-      toast.success("로그아웃 되었습니다. 또 와요! 👻", toastStyle);
-    } catch (error) {
-      console.error(error);
-      toast.error("로그아웃에 실패했습니다.", toastStyle);
-    }
-  };
+  const { user } = useContext(AuthContext);
   return (
     <div className="profile__box">
       <div className="flex__box-lg">
