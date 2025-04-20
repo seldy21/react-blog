@@ -209,6 +209,11 @@ footer {
 .profile__logout {
   color: gray;
   font-size: 14px;
+  cursor: pointer;
+}
+
+.profile__logout:hover {
+  text-decoration: underline;
 }
 
 /* carousel */
@@ -383,8 +388,6 @@ footer {
   margin: auto;
   width: 48px;
   height: 48px;
-  border: 4px solid #929292;
-  border-bottom: none;
   border-radius: 100%;
   z-index: 9999;
   animation: loader 1s linear infinite;

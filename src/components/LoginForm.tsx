@@ -1,7 +1,7 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "firebaseApp";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { toastStyle } from "utils/toastStyle";
 
@@ -9,6 +9,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -37,6 +38,7 @@ export default function LoginForm() {
       await signInWithEmailAndPassword(auth, email, password);
 
       toast.success("로그인에 성공하였습니다! 🦄", toastStyle);
+      navigate("/");
     } catch (error: any) {
       console.log(error);
       toast.error(`로그인에 실패하였습니다. 😢 ${error?.code}`, toastStyle);
