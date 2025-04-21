@@ -69,7 +69,11 @@ export default function PostForm() {
           title: content.title,
           summary: content.summary,
           content: content.content,
-          updatedAt: new Date()?.toLocaleDateString(),
+          updatedAt: new Date()?.toLocaleDateString("ko", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }),
         });
         navigate(`/posts/${post.id}`);
       } else {
@@ -77,7 +81,11 @@ export default function PostForm() {
           title: content.title,
           summary: content.summary,
           content: content.content,
-          createdAt: new Date()?.toLocaleDateString(),
+          createdAt: new Date()?.toLocaleDateString("ko", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }),
           author: user?.email,
         });
       }
