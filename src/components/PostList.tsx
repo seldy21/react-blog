@@ -40,7 +40,7 @@ export default function PostList({ hasNavigate = true }: PostListProps) {
 
   //삭제
   const handleDelete = async () => {
-
+    
   };
   return (
     <>
