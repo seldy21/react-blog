@@ -8,12 +8,14 @@ import {
   getDocs,
   orderBy,
   query,
+  where,
 } from "firebase/firestore";
 import AuthContext from "context/AuthContext";
 import { toast } from "react-toastify";
 
 interface PostListProps {
   hasNavigate?: boolean;
+  defaultTab?: "all" | "my" | CategoryType;
 }
 
 export interface PostProp {
@@ -23,20 +25,55 @@ export interface PostProp {
   content: string;
   createdAt: string;
   author: string;
+  category: CategoryType;
 }
 
 type TabType = "all" | "my";
 
-export default function PostList({ hasNavigate = true }: PostListProps) {
+export type CategoryType = "Frontend" | "Backend" | "Web" | "Native";
+export const CATEGORIES: CategoryType[] = [
+  "Frontend",
+  "Backend",
+  "Web",
+  "Native",
+];
+
+export default function PostList({
+  hasNavigate = true,
+  defaultTab = "all",
+}: PostListProps) {
   const { user } = useContext(AuthContext);
-  const [activeTab, setActiveTab] = useState<TabType>("all");
+  const [activeTab, setActiveTab] = useState<TabType | CategoryType>(
+    defaultTab
+  );
 
   const [posts, setPosts] = useState<PostProp[]>([]);
 
   const getPosts = async () => {
     setPosts([]);
     const postsRef = collection(db, "posts");
-    const postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+    let postsQuery;
+
+    if (activeTab === "my") {
+      // 나의 글
+      postsQuery = query(
+        postsRef,
+        orderBy("createdAt", "desc"),
+        where("author", "==", user?.email)
+      );
+    } else if (activeTab === "all") {
+      // 전체 글
+      postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+    } else {
+      // 카테고리별 글
+      postsQuery = query(
+        postsRef,
+        orderBy("createdAt", "desc"),
+        where("category", "==", activeTab)
+      );
+    }
+
+  
     const querySnapshot = await getDocs(postsQuery);
     querySnapshot.forEach((doc) => {
       const postData = { ...doc.data(), id: doc.id } as PostProp;
@@ -46,7 +83,7 @@ export default function PostList({ hasNavigate = true }: PostListProps) {
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [activeTab, user]);
 
   //삭제
   const handleDelete = async (id: string) => {
@@ -77,6 +114,15 @@ export default function PostList({ hasNavigate = true }: PostListProps) {
           >
             나의 글
           </div>
+          {CATEGORIES.map((item) => (
+            <div
+              key={item}
+              onClick={() => setActiveTab(item)}
+              className={activeTab === item ? "post__navigation-active" : ""}
+            >
+              {item}
+            </div>
+          ))}
         </div>
       )}
       <div className="post__list">

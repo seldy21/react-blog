@@ -5,12 +5,13 @@ import { db } from "firebaseApp";
 import { title } from "process";
 import AuthContext from "context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
-import { PostProp } from "./PostList";
+import { CATEGORIES, CategoryType, PostProp } from "./PostList";
 
 interface PostFormProps {
   title: string;
   summary: string;
   content: string;
+  category: CategoryType | string;
 }
 
 export default function PostForm() {
@@ -39,6 +40,7 @@ export default function PostForm() {
     title: "",
     summary: "",
     content: "",
+    category: CATEGORIES[0],
   });
 
   useEffect(() => {
@@ -47,12 +49,15 @@ export default function PostForm() {
         title: post.title,
         summary: post.summary,
         content: post.content,
+        category: post.category,
       });
     }
   }, [post]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
     setContent((prevContent) => ({ ...prevContent, [name]: value }));
@@ -74,6 +79,7 @@ export default function PostForm() {
             minute: "2-digit",
             second: "2-digit",
           }),
+          category: content.category,
         });
         navigate(`/posts/${post.id}`);
       } else {
@@ -87,9 +93,12 @@ export default function PostForm() {
             second: "2-digit",
           }),
           author: user?.email,
+          category: content.category,
         });
       }
-      toast.success(`포스트가 ${post && post.id ? "업데이트" : "업로드"} 되었어요! 🎉`);
+      toast.success(
+        `포스트가 ${post && post.id ? "업데이트" : "업로드"} 되었어요! 🎉`
+      );
       navigate("/");
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -109,6 +118,24 @@ export default function PostForm() {
           value={content?.title}
         />
       </div>
+
+      <div className="form__block">
+        <label htmlFor="category">카테고리</label>
+        <select
+          name="category"
+          id="category"
+          required
+          onChange={handleChange}
+          value={content?.category}
+        >
+          {CATEGORIES.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div className="form__block">
         <label htmlFor="summary">요약</label>
         <input
