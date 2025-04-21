@@ -8,7 +8,6 @@ import Loader from "components/Loader";
 
 function App() {
   const auth = getAuth(app);
-
   // 로그인 상태를 관리하기 위한 state
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
     !!auth?.currentUser
