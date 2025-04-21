@@ -23,7 +23,7 @@ function Router({ isAuthenticated }: RouterProps) {
           <Route path="/posts" element={<PostList />} />
           <Route path="/posts/:id" element={<PostPage />} />
           <Route path="/posts/new" element={<PostNew />} />
-          <Route path="/posts/edit" element={<PostEdit />} />
+          <Route path="/posts/edit/:id" element={<PostEdit />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="*" element={<Navigate to="/" />} /> {/*default route*/}
         </>
