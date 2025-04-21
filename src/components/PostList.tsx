@@ -1,8 +1,9 @@
 import { db } from "firebaseApp";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import AuthContext from "context/AuthContext";
+import { toast } from "react-toastify";
 
 interface PostListProps {
   hasNavigate?: boolean;
@@ -27,7 +28,7 @@ export default function PostList({ hasNavigate = true }: PostListProps) {
 
   const getPosts = async () => {
     const querySnapshot = await getDocs(collection(db, "posts"));
-    console.log(querySnapshot);
+    setPosts([]);
     querySnapshot.forEach((doc) => {
       const postData = { ...doc.data(), id: doc.id } as PostProp;
       setPosts((prevPosts) => [...prevPosts, postData]);
@@ -39,8 +40,17 @@ export default function PostList({ hasNavigate = true }: PostListProps) {
   }, []);
 
   //삭제
-  const handleDelete = async () => {
-    
+  const handleDelete = async (id : string) => {
+    const confirm = window.confirm("정말 삭제하시겠습니까?");
+    if (confirm) {
+      try {
+        await deleteDoc(doc(db, "posts", id));
+        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+        toast.success("삭제되었습니다!");
+      } catch (error) {
+        console.error("Error deleting document: ", error);
+      }
+    }
   };
   return (
     <>
@@ -76,7 +86,7 @@ export default function PostList({ hasNavigate = true }: PostListProps) {
               </Link>
                 {user?.email === item.author && (
                   <div className="post__utils-box">
-                    <div className="post__delete" onClick={handleDelete}>삭제</div>
+                    <div className="post__delete" role="presentation" onClick={()=>handleDelete(item.id)}>삭제</div>
                     <div className="post__edit"><Link to={`/posts/edit/${item.id}`}>수정</Link></div>
                   </div>
                 )}
