@@ -6,8 +6,13 @@ import { toast } from "react-toastify";
 import { toastStyle } from "utils/toastStyle";
 
 const onSignOut = async () => {
+<<<<<<< HEAD
   const auth = getAuth(app);
   try {
+=======
+  try {
+    const auth = getAuth(app);
+>>>>>>> 7ea940ccae91584eb13736b59fd02e14a61be98c
     await signOut(auth);
     toast.success("로그아웃 되었습니다. 또 와요! 👻", toastStyle);
   } catch (error) {

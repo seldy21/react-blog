@@ -28,7 +28,12 @@
     "pages/*" : ["pages/*"],
     "components/*" : ["components/*"],
     "firebaseApp/*" : ["firebaseApp/*"],
+<<<<<<< HEAD
     "utils/*" : ["utils/*"],
     "context/*" : ["context/*"],
+=======
+    "context/*" : ["context/*"],
+    "utils/*" : ["utils/*"],
+>>>>>>> 7ea940ccae91584eb13736b59fd02e14a61be98c
   }
 }
