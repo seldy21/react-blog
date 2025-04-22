@@ -5,6 +5,7 @@ import { PostProp } from "./PostList";
 import { db } from "firebaseApp";
 import Loader from "./Loader";
 import { toast } from "react-toastify";
+import Comments from "./Comments";
 
 export default function PostDetail() {
   const params = useParams();
@@ -44,24 +45,27 @@ export default function PostDetail() {
     <>
       <div className="post__detail">
         {post ? (
-          <div className="post__box">
-            <div className="post__title">{post?.title}</div>
-            <div className="post__profile-box">
-              <div className="post__profile"></div>
-              <div className="post__authour-name">{post?.author}</div>
-              <div className="post__date">{post?.createdAt}</div>
-            </div>
-            <div className="post__utils-box">
-              <div className="post__category">{post?.category}</div>
-              <div className="post__delete" onClick={handleDelete}>
-                삭제
+          <>
+            <div className="post__box">
+              <div className="post__title">{post?.title}</div>
+              <div className="post__profile-box">
+                <div className="post__profile"></div>
+                <div className="post__authour-name">{post?.author}</div>
+                <div className="post__date">{post?.createdAt}</div>
               </div>
-              <div className="post__edit">
-                <Link to={`/posts/edit/${post?.id}`}>수정</Link>
+              <div className="post__utils-box">
+                <div className="post__category">{post?.category}</div>
+                <div className="post__delete" onClick={handleDelete}>
+                  삭제
+                </div>
+                <div className="post__edit">
+                  <Link to={`/posts/edit/${post?.id}`}>수정</Link>
+                </div>
               </div>
+              <div className="post__text">{post?.content}</div>
             </div>
-            <div className="post__text">{post?.content}</div>
-          </div>
+            <Comments/>
+          </>
         ) : (
           <Loader />
         )}
