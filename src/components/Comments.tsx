@@ -7,16 +7,13 @@ import { toast } from "react-toastify";
 
 interface CommentsProps {
   post: PostProp | null;
+  getPost: (id: string) => void;
 }
 
-export default function Comments({ post }: CommentsProps) {
+export default function Comments({ post, getPost }: CommentsProps) {
   const { user } = useContext(AuthContext);
   const [comment, setComment] = useState<string>("");
 
-  const [commentList, setCommentList] = useState<CommentInterface[]>([]);
-
-
-  useEffect(() => {}, [post]);
   // 댓글 내용 작성
   const hnadleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
@@ -44,6 +41,7 @@ export default function Comments({ post }: CommentsProps) {
           comments: arrayUnion(commentData),
         });
       }
+      getPost(post?.id as string);
       toast.success("댓글이 등록되었습니다! 😁");
       setComment("");
     } catch (error) {
@@ -70,16 +68,16 @@ export default function Comments({ post }: CommentsProps) {
         </div>
       </form>
       <div className="comments__list">
-        {[...Array(10)].map((item, index) => (
-          <div key={index} className="comment__box">
+        {post?.comments?.slice(0).reverse().map((item, index) => (
+          <div key={`comment_${index}`} className="comment__box">
             <div className="comment__profile-box">
               <div className="comment__profile"></div>
-              <div className="comment__authour-name">작성자</div>
-              <div className="comment__date">2023-10-10</div>
+              <div className="comment__authour-name">{item.email}</div>
+              <div className="comment__date">{item.createdAt}</div>
               <div className="comment__delete">삭제</div>
             </div>
             <div className="comment__text">
-              <div className="comment__text">댓글 내용</div>
+              <div className="comment__text">{item.content}</div>
             </div>
           </div>
         ))}

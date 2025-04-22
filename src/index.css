@@ -37,6 +37,7 @@ textarea {
   border: 1px solid #b9b9b9d0;
   width: 100%;
   border-radius: 0.3rem;
+  padding: 1rem;
 }
 
 /*theme*/
@@ -497,6 +498,7 @@ footer {
   margin-top: 20px;
   border-top: 1px solid #dadada;
   padding-top: 20px;
+  margin-bottom: 40px;
 }
 
 .form__block-submit {
