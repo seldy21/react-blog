@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CommentInterface, PostProp } from "./PostList";
 import { db } from "firebaseApp";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import AuthContext from "context/AuthContext";
 import { toast } from "react-toastify";
 
@@ -50,6 +50,24 @@ export default function Comments({ post, getPost }: CommentsProps) {
     }
   };
 
+  const handleDeleteComment = async (data: CommentInterface) => {
+    console.log(data);
+    const confirm = window.confirm("정말 삭제하시겠습니까?");
+    if (confirm) {
+      try {
+        const postRef = doc(db, "posts", post?.id as string);
+        await updateDoc(postRef, {
+          comments: arrayRemove(data),
+        });
+        getPost(post?.id as string);
+        toast.success("댓글이 삭제되었습니다! 😁");
+      } catch (error) {
+        console.error("Error deleting comment: ", error);
+        toast.error("댓글 삭제에 실패했습니다. 😢");
+      }
+    }
+  };
+
   return (
     <div className="comments">
       <form className="comments__form" onSubmit={handleSubmit}>
@@ -68,19 +86,29 @@ export default function Comments({ post, getPost }: CommentsProps) {
         </div>
       </form>
       <div className="comments__list">
-        {post?.comments?.slice(0).reverse().map((item, index) => (
-          <div key={`comment_${index}`} className="comment__box">
-            <div className="comment__profile-box">
-              <div className="comment__profile"></div>
-              <div className="comment__authour-name">{item.email}</div>
-              <div className="comment__date">{item.createdAt}</div>
-              <div className="comment__delete">삭제</div>
+        {post?.comments
+          ?.slice(0)
+          .reverse()
+          .map((item, index) => (
+            <div key={`comment_${index}`} className="comment__box">
+              <div className="comment__profile-box">
+                <div className="comment__profile"></div>
+                <div className="comment__authour-name">{item.email}</div>
+                <div className="comment__date">{item.createdAt}</div>
+                {item.uid === user?.uid && (
+                  <div
+                    className="comment__delete"
+                    onClick={() => handleDeleteComment(item)}
+                  >
+                    삭제
+                  </div>
+                )}
+              </div>
+              <div className="comment__text">
+                <div className="comment__text">{item.content}</div>
+              </div>
             </div>
-            <div className="comment__text">
-              <div className="comment__text">{item.content}</div>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
