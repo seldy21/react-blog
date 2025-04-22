@@ -31,6 +31,35 @@ a {
   color: inherit;
 }
 
+/*theme*/
+.app_container{
+  background-color: #f0f0f0;
+  transition: all 0.5s linear;
+}
+
+.app_container.dark__theme{
+  background-color: #282c34;
+}
+
+.dark__theme a,
+.dark__theme .form label,
+.dark__theme .header__logo,
+.dark__theme .post__title,
+.dark__theme .post__authour-name,
+.dark__theme .post__detail .post__text,
+.dark__theme .post__navigation-active,
+.dark__theme .post__edit a,
+.dark__theme .profile__email,
+.dark__theme .profile__name
+{
+  color: #eaeaea;
+}
+
+.dark__theme .post__navigation-link,
+.dark__theme .post__text{
+  color: #aaaaaa;
+}
+
 /*header*/
 header {
   display: flex;
@@ -57,6 +86,16 @@ header .header__logo {
   color: black;
   font-weight: 600;
   font-size: 18px;
+}
+
+header .header__link {
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+header h2 {
+  margin: 0;
+  cursor: pointer;
 }
 
 /*footer*/
@@ -102,7 +141,7 @@ footer {
   align-items: center;
   margin: 0 auto;
   padding: 2rem 0;
-  min-height: calc(100vh - 164px);
+  min-height: calc(100vh - 100px);
   text-align: left;
   line-height: 24px;
   max-width: 680px;
@@ -129,7 +168,7 @@ footer {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #eeeeee;
+  background-color: #ffffff;
 }
 
 .post__date {
@@ -176,6 +215,10 @@ footer {
   margin-left: auto;
 }
 
+.post__edit{
+  font-size: 14px;
+}
+
 .post__category{
   color: #83868a;
   font-size: 14px;
@@ -210,7 +253,7 @@ footer {
 .profile__image {
   width: 72px;
   height: 72px;
-  background-color: #efefef;
+  background-color: #ffffff;
   border-radius: 50%;
 }
 
@@ -302,6 +345,7 @@ footer {
   max-width: 680px;
   padding: 20px;
   margin-top: 20px;
+  min-height: calc(100vh - 80px);
 }
 
 .form input {

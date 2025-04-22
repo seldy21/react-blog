@@ -110,7 +110,7 @@ export default function PostList({
           </div>
           <div
             onClick={() => setActiveTab("my")}
-            className={activeTab === "my" ? "post__navigation-active" : ""}
+            className={`${activeTab === "my" ? "post__navigation-active" : ""} post__navigation-link`}
           >
             나의 글
           </div>
@@ -118,7 +118,7 @@ export default function PostList({
             <div
               key={item}
               onClick={() => setActiveTab(item)}
-              className={activeTab === item ? "post__navigation-active" : ""}
+              className={`${activeTab === item ? "post__navigation-active" : ""} post__navigation-link`}
             >
               {item}
             </div>
