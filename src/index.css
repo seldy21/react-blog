@@ -420,7 +420,7 @@ footer {
 /* login */
 .form--lg {
   max-width: 500px;
-  min-height: 70vh;
+  min-height: calc(100vh - 20vh - -32px);
   margin-top: 10vh;
 }
 
